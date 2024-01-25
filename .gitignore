@@ -1,49 +1,17 @@
-# Node modules and log files
-node_modules/
-npm-debug.log*
-yarn-debug.log*
-yarn-error.log*
-
-# Environment variables
-.env
-
-# Editor directories and files
-.vscode/
-*.suo
-*.ntvs*
-*.njsproj
-*.sln
-*.sw?
-
-# Operating System Files
-.DS_Store
-Thumbs.db
-
-# Build output
-/dist
-/build
-/out
-/lib
-/appPackage/build
-
-# Dependency directories (uncomment if you choose not to include them)
-#package-lock.json
-#yarn.lock
-
-# Microsoft Teams Toolkit
-*.publish
-*.env.teamsfx
-*.userdata
-
 # TeamsFx files
 env/.env.*.user
 env/.env.local
-
-# Local data
-.localConfigs.testTool
 .localConfigs
-.notification.localstore.json
-.notification.testtoolstore.json
+build
+appPackage/build
 
-# Miscellaneous
+# dependencies
+node_modules/
+
+# misc
+.env
 .deployment
+.DS_Store
+
+# build
+lib/

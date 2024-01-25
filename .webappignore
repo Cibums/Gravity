@@ -1,10 +1,7 @@
 .webappignore
 .fx
 .deployment
-.localConfigs.testTool
-.localConfigs
-.notification.localstore.json
-.notification.testtoolstore.json
+.localSettings
 .vscode
 *.js.map
 *.ts.map
@@ -25,4 +22,3 @@ teamsapp.*.yml
 /node_modules/typescript
 /appPackage/
 /infra/
-/templates/

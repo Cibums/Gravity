@@ -8,7 +8,7 @@
         "name": "Teams App, Inc.",
         "websiteUrl": "https://www.example.com",
         "privacyUrl": "https://www.example.com/privacy",
-        "termsOfUseUrl": "https://www.example.com/termofuse"
+        "termsOfUseUrl": "https://www.example.com/termsofuse"
     },
     "icons": {
         "color": "color.png",
@@ -23,39 +23,24 @@
         "full": "Full description of Gravity"
     },
     "accentColor": "#FFFFFF",
-    "bots": [
+    "bots": [],
+    "composeExtensions": [],
+    "staticTabs": [
         {
-            "botId": "${{BOT_ID}}",
+            "entityId": "index0",
+            "name": "Personal Tab",
+            "contentUrl": "${{TAB_ENDPOINT}}/tab",
+            "websiteUrl": "${{TAB_ENDPOINT}}/tab",
             "scopes": [
-                "personal",
-                "team",
-                "groupchat"
-            ],
-            "supportsFiles": false,
-            "isNotificationOnly": false,
-            "commandLists": [
-                {
-                    "scopes": [
-                        "personal",
-                        "team",
-                        "groupchat"
-                    ],
-                    "commands": [
-                        {
-                            "title": "helloWorld",
-                            "description": "A helloworld command to send a welcome message"
-                        }
-                    ]
-                }
+                "personal"
             ]
         }
     ],
-    "composeExtensions": [],
-    "configurableTabs": [],
-    "staticTabs": [],
     "permissions": [
         "identity",
         "messageTeamMembers"
     ],
-    "validDomains": []
+    "validDomains": [
+        "${{TAB_DOMAIN}}"
+    ]
 }
