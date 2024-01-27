@@ -1,7 +1,7 @@
 # TeamsFx files
 env/.env.*.user
 env/.env.local
-.localConfigs
+.DS_Store
 build
 appPackage/build
 
@@ -15,3 +15,9 @@ node_modules/
 
 # build
 lib/
+
+# Local data
+.localConfigs.testTool
+.localConfigs
+.notification.localstore.json
+.notification.testtoolstore.json

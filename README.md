@@ -1,67 +1,203 @@
-# Overview of the Basic Tab template
+# Overview of the Workflow bot template
 
-This template showcases how Microsoft Teams supports the ability to run web-based UI inside "custom tabs" that users can install either for just themselves (personal tabs) or within a team or group chat context.
+This template showcases an app that responds to chat commands by displaying UI using an Adaptive Card. The card has a button that demonstrates how to receive user input on the card, do something like call an API, and update the UI of that card. This can be further customized to create richer, more complex sequence of steps which forms a complete workflow.
 
-## Get started with the Basic Tab template
+The app template is built using the TeamsFx SDK, which provides a simple set of functions over the Microsoft Bot Framework to implement this scenario.
+
+## Get Started with the Workflow bot
 
 > **Prerequisites**
 >
-> To run the basic tab template in your local dev machine, you will need:
+> To run the workflow bot template in your local dev machine, you will need:
 >
 > - [Node.js](https://nodejs.org/), supported versions: 16, 18
-> - A [Microsoft 365 account for development](https://docs.microsoft.com/microsoftteams/platform/toolkit/accounts)
-> - [Set up your dev environment for extending Teams apps across Microsoft 365](https://aka.ms/teamsfx-m365-apps-prerequisites)
-> Please note that after you enrolled your developer tenant in Office 365 Target Release, it may take couple days for the enrollment to take effect.
-> - [Teams Toolkit Visual Studio Code Extension](https://aka.ms/teams-toolkit) version 5.0.0 and higher or [Teams Toolkit CLI](https://aka.ms/teamsfx-cli)
+> - An [Microsoft 365 account for development](https://docs.microsoft.com/microsoftteams/platform/toolkit/accounts)
+> - [Teams Toolkit Visual Studio Code Extension](https://aka.ms/teams-toolkit) version 5.0.0 and higher or [TeamsFx CLI](https://aka.ms/teamsfx-cli)
+>
+> **Note**
+>
+> Your app can be installed into a team, or a group chat, or as personal app. See [Installation and Uninstallation](https://aka.ms/teamsfx-command-response#customize-installation).
 
 1. First, select the Teams Toolkit icon on the left in the VS Code toolbar.
 2. In the Account section, sign in with your [Microsoft 365 account](https://docs.microsoft.com/microsoftteams/platform/toolkit/accounts) if you haven't already.
-3. Press F5 to start debugging which launches your app in Teams using a web browser. Select `Debug (Edge)` or `Debug (Chrome)`.
+3. Press F5 to start debugging which launches your app in Teams using a web browser. Select `Debug in Teams (Edge)` or `Debug in Teams (Chrome)`.
 4. When Teams launches in the browser, select the Add button in the dialog to install your app to Teams.
+5. Type or select `helloWorld` in the chat to send it to your bot - this is the default command provided by the template.
+6. In the response from the bot, select the **DoStuff** button.
 
-**Congratulations**! You are running an application that can now show a basic web page in Teams, Outlook and the Microsoft 365 app.
+The bot will respond by updating the existing Adaptive Card to show the workflow is now complete! Continue reading to learn more about what's included in the template and how to customize it.
 
-![Basic Tab](https://github.com/OfficeDev/TeamsFx/assets/11220663/ad7bd534-cdb2-4c18-a71b-b206b6387b4c)
+Here is a screen shot of the application running:
+
+![Responds to command](https://user-images.githubusercontent.com/10163840/192477792-dc447b3a-e304-4cd8-b4df-b1eb9d226292.png)
+
+When you click the `DoStuff` button, the above adaptive card will be updated to a new card as shown below:
+
+![Responds to card action](https://user-images.githubusercontent.com/10163840/192477148-29d9edfc-085b-4d02-b3de-b47b9a456108.png)
 
 ## What's included in the template
 
-| Folder       | Contents                                            |
+| Folder / File | Contents |
 | - | - |
-| `.vscode`    | VSCode files for debugging                          |
-| `appPackage` | Templates for the Teams application manifest        |
-| `env`        | Environment files                                   |
-| `infra`      | Templates for provisioning Azure resources          |
-| `src`        | The source code for the Teams application |
+| `teamsapp.yml` | Main project file describes your application configuration and defines the set of actions to run in each lifecycle stages |
+| `teamsapp.local.yml`| This overrides `teamsapp.yml` with actions that enable local execution and debugging |
+| `teamsapp.testtool.yml`| This overrides `teamsapp.yml` with actions that enable local execution and debugging in Teams App Test Tool |
+| `env/`| Name / value pairs are stored in environment files and used by `teamsapp.yml` to customize the provisioning and deployment rules |
+| `.vscode/` | VSCode files for debugging |
+| `appPackage/` | Templates for the Teams application manifest |
+| `infra/` | Templates for provisioning Azure resources |
+| `src/` | The source code for the application |
 
 The following files can be customized and demonstrate an example implementation to get you started.
 
-| File                                 | Contents                                           |
+| File | Contents |
 | - | - |
-|`src/static/scripts/teamsapp.js`|A script that calls `teamsjs` SDK to get the context of on which Microsoft 365 application your app is running.|
-|`src/static/styles/custom.css`|css file for the app.|
-|`src/static/views/hello.html`|html file for the app.|
-|`src/app.ts`|Starting a restify server.|
+| `src/index.ts`| Application entry point and `restify` handlers for the Workflow bot |
+| `src/teamsBot.ts` | An empty teams activity handler for bot customization |
+| `src/commands/helloworldCommandHandler.ts` | Implementation that handles responding to a chat command |
+| `src/adaptiveCards/helloworldCommandResponse.json` | Defines the Adaptive Card (UI) that is displayed in response to a chat command |
+| `src/adaptiveCards/doStuffActionResponse.json` | A generated Adaptive Card that is sent to Teams for the response of "doStuff" action |
+| `src/cardActions/doStuffActionHandler.ts` | Implements the handler for the `doStuff` button displayed in the Adaptive Card |
 
-The following are Teams Toolkit specific project files. You can [visit a complete guide on Github](https://github.com/OfficeDev/TeamsFx/wiki/Teams-Toolkit-Visual-Studio-Code-v5-Guide#overview) to understand how Teams Toolkit works.
+## Extend the workflow bot template with more actions and responses
 
-| File                                 | Contents                                           |
-| - | - |
-|`teamsapp.yml`|This is the main Teams Toolkit project file. The project file defines two primary things:  Properties and configuration Stage definitions.|
-|`teamsapp.local.yml`|This overrides `teamsapp.yml` with actions that enable local execution and debugging.|
+Follow steps below to add more actions and responses to extend the workflow bot:
 
-## Extend the Basic Tab template
+1. [Step 1: Add an action to your Adaptive Card](#step-1-add-an-action-to-your-adaptive-card)
+2. [Step 2: Respond with a new Adaptive Card](#step-2-respond-with-a-new-adaptive-card)
+3. [Step 3: Handle the new action](#step-3-handle-the-new-action)
+4. [Step 4: Register the new handler](#step-4-register-the-new-handler)
 
-Following documentation will help you to extend the Basic Tab template.
+### Step 1: Add an action to your Adaptive Card
 
-- [Add or manage the environment](https://learn.microsoft.com/microsoftteams/platform/toolkit/teamsfx-multi-env)
-- [Create multi-capability app](https://learn.microsoft.com/microsoftteams/platform/toolkit/add-capability)
-- [Add single sign on to your app](https://learn.microsoft.com/microsoftteams/platform/toolkit/add-single-sign-on)
-- [Access data in Microsoft Graph](https://learn.microsoft.com/microsoftteams/platform/toolkit/teamsfx-sdk#microsoft-graph-scenarios)
-- [Use an existing Microsoft Entra application](https://learn.microsoft.com/microsoftteams/platform/toolkit/use-existing-aad-app)
-- [Customize the Teams app manifest](https://learn.microsoft.com/microsoftteams/platform/toolkit/teamsfx-preview-and-customize-app-manifest)
-- Host your app in Azure by [provision cloud resources](https://learn.microsoft.com/microsoftteams/platform/toolkit/provision) and [deploy the code to cloud](https://learn.microsoft.com/microsoftteams/platform/toolkit/deploy)
-- [Collaborate on app development](https://learn.microsoft.com/microsoftteams/platform/toolkit/teamsfx-collaboration)
-- [Set up the CI/CD pipeline](https://learn.microsoft.com/microsoftteams/platform/toolkit/use-cicd-template)
-- [Publish the app to your organization or the Microsoft Teams app store](https://learn.microsoft.com/microsoftteams/platform/toolkit/publish)
-- [Enable the app for multi-tenant](https://github.com/OfficeDev/TeamsFx/wiki/Multi-tenancy-Support-for-Azure-AD-app)
-- [Preview the app on mobile clients](https://github.com/OfficeDev/TeamsFx/wiki/Run-and-debug-your-Teams-application-on-iOS-or-Android-client)
+Adding new actions (buttons) to an Adaptive Card is as simple as defining them in the JSON file. Add a new `DoSomething` action to the `src/adaptiveCards/helloworldCommandResponse.json` file:
+
+Here's a sample action with type `Action.Execute`:
+
+```json
+{
+  "type": "AdaptiveCard",
+  "body": [
+    ...
+    {
+      "type": "ActionSet",
+      "actions": [
+        {
+          "type": "Action.Execute",
+          "title": "DoSomething",
+          "verb": "doSomething"
+        }
+      ]
+    },
+    ...
+  ]
+}
+```
+
+Specifying the `type` as `Action.Execute` to define an universal action in the base card. User can click the button to perform some business task in Teams chat. Learn more about [Adaptive Card Universal Actions in the documentation](https://learn.microsoft.com/microsoftteams/platform/task-modules-and-cards/cards/universal-actions-for-adaptive-cards/overview?tabs=mobile#universal-actions).
+
+> **_NOTE:_** the `verb` property is required here so that the TeamsFx conversation SDK can invoke the corresponding action handler when the action is invoked in Teams. You should provide a global unique string for the `verb` property, otherwise you may experience unexpected behavior if you're using a general string that might cause a collision with other bot actions.
+
+### Step 2: Respond with a new Adaptive Card
+
+For each action, you can display a new Adaptive Card as a response to the user. Create a new file, `src/adaptiveCards/doSomethingResponse.json` to use as a response for the `DoSomething` action created in the previous step:
+
+```json
+{
+  "type": "AdaptiveCard",
+  "body": [
+    {
+      "type": "TextBlock",
+      "size": "Medium",
+      "weight": "Bolder",
+      "text": "A sample response to DoSomething."
+    }
+  ],
+  "$schema": "http://adaptivecards.io/schemas/adaptive-card.json",
+  "version": "1.4"
+}
+```
+
+You can use the [Adaptive Card Designer](https://adaptivecards.io/designer/) to help visually design your Adaptive Card UI.
+
+### Step 3: Handle the new action
+
+The TeamsFx SDK provides a convenient class, `TeamsFxAdaptiveCardActionHandler`, to handle when an action from an Adaptive Card is invoked. Create a new file, `src/cardActions/doSomethingActionHandler.ts`:
+
+```typescript
+const { AdaptiveCards } = require("@microsoft/adaptivecards-tools");
+const { AdaptiveCardResponse, InvokeResponseFactory } = require("@microsoft/teamsfx");
+const responseCard = require("../adaptiveCards/doSomethingResponse.json");
+
+export class DoSomethingActionHandler {
+  triggerVerb = "doSomething";
+
+  async handleActionInvoked(context, message) {
+    const responseCardJson = AdaptiveCards.declare(responseCard).render(actionData);
+    return InvokeResponseFactory.adaptiveCard(responseCardJson);
+  }
+}
+```
+
+> Please note:
+>
+> - The `triggerVerb` is the `verb` property of your action.
+>
+> - The `actionData` is the data associated with the action, which may include dynamic user input or some contextual data provided in the `data` property of your action.
+>
+> - If an Adaptive Card is returned, then the existing card will be replaced with it by default.
+
+You can customize what the action does here, including calling an API, processing data, etc.
+
+### Step 4: Register the new handler
+
+Each new card action needs to be configured in the `ConversationBot`, which powers the conversational flow of the workflow bot template. Navigate to the `src/internal/initialize.ts` file and update the `actions` array of the `cardAction` property.
+
+1. Go to `src/internal/initialize.ts`;
+2. Update your `conversationBot` initialization to enable cardAction feature and add the handler to `actions` array:
+
+```typescript
+import { BotBuilderCloudAdapter } from "@microsoft/teamsfx";
+import ConversationBot = BotBuilderCloudAdapter.ConversationBot;
+
+const conversationBot = new ConversationBot({
+  ...
+  cardAction: {
+    enabled: true,
+    actions: [
+      new DoStuffActionHandler(),
+      new DoSomethingActionHandler()
+    ],
+  }
+});
+```
+
+Congratulations, you've just created your own workflow! To learn more about extending the Workflow bot template, [visit the documentation on GitHub](https://aka.ms/teamsfx-workflow-new). You can find more scenarios like:
+
+- [Customize the way to respond to an action](https://aka.ms/teamsfx-workflow-new#customize-the-action-response)
+- [Customize the Adaptive Card content](https://aka.ms/teamsfx-workflow-new#customize-the-adaptive-card-content)
+- [Create a user specific view](https://aka.ms/teamsfx-workflow-new#auto-refresh-to-user-specific-view)
+- [Access Microsoft Graph](https://aka.ms/teamsfx-workflow-new#access-microsoft-graph)
+- [Connect to existing APIs](https://aka.ms/teamsfx-workflow-new#connect-to-existing-apis)
+- [Change the way to initialize the bot](https://aka.ms/teamsfx-workflow-new#customize-the-initialization)
+
+## Extend workflow bot with other bot scenarios
+
+Workflow bot is compatible with other bot scenarios like notification bot and command bot.
+
+### Add notifications to your workflow bot
+
+The notification feature adds the ability for your application to send Adaptive Cards in response to external events. Follow the [steps here](https://aka.ms/teamsfx-workflow-new#how-to-extend-workflow-bot-with-notification-feature) to add the notification feature to your workflow bot. Refer [the notification document](https://aka.ms/teamsfx-notification-new) for more information.
+
+### Add command and responses to your workflow bot
+
+The command and response feature adds the ability for your application to "listen" to commands sent to it via a Teams message and respond to commands with Adaptive Cards. Follow the [steps here](https://aka.ms/teamsfx-command-new#How-to-add-more-command-and-response) to add the command response feature to your workflow bot. Refer [the command bot document](https://aka.ms/teamsfx-command-new) for more information.
+
+## Additional information and references
+
+- [Manage multiple environments](https://docs.microsoft.com/microsoftteams/platform/toolkit/teamsfx-multi-env)
+- [Collaborate with others](https://docs.microsoft.com/microsoftteams/platform/toolkit/teamsfx-collaboration)
+- [Teams Toolkit Documentations](https://docs.microsoft.com/microsoftteams/platform/toolkit/teams-toolkit-fundamentals)
+- [Teams Toolkit CLI](https://docs.microsoft.com/microsoftteams/platform/toolkit/teamsfx-cli)
+- [TeamsFx SDK](https://docs.microsoft.com/microsoftteams/platform/toolkit/teamsfx-sdk)
+- [Teams Toolkit Samples](https://github.com/OfficeDev/TeamsFx-Samples)

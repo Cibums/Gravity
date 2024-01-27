@@ -8,39 +8,54 @@
         "name": "Teams App, Inc.",
         "websiteUrl": "https://www.example.com",
         "privacyUrl": "https://www.example.com/privacy",
-        "termsOfUseUrl": "https://www.example.com/termsofuse"
+        "termsOfUseUrl": "https://www.example.com/termofuse"
     },
     "icons": {
         "color": "color.png",
         "outline": "outline.png"
     },
     "name": {
-        "short": "Gravity${{APP_NAME_SUFFIX}}",
-        "full": "Full name for Gravity"
+        "short": "Gravity2${{APP_NAME_SUFFIX}}",
+        "full": "Full name for Gravity2"
     },
     "description": {
-        "short": "Short description of Gravity",
-        "full": "Full description of Gravity"
+        "short": "Short description of Gravity2",
+        "full": "Full description of Gravity2"
     },
     "accentColor": "#FFFFFF",
-    "bots": [],
-    "composeExtensions": [],
-    "staticTabs": [
+    "bots": [
         {
-            "entityId": "index0",
-            "name": "Personal Tab",
-            "contentUrl": "${{TAB_ENDPOINT}}/tab",
-            "websiteUrl": "${{TAB_ENDPOINT}}/tab",
+            "botId": "${{BOT_ID}}",
             "scopes": [
-                "personal"
+                "personal",
+                "team",
+                "groupchat"
+            ],
+            "supportsFiles": false,
+            "isNotificationOnly": false,
+            "commandLists": [
+                {
+                    "scopes": [
+                        "personal",
+                        "team",
+                        "groupchat"
+                    ],
+                    "commands": [
+                        {
+                            "title": "helloWorld",
+                            "description": "A helloworld command to send a welcome message"
+                        }
+                    ]
+                }
             ]
         }
     ],
+    "composeExtensions": [],
+    "configurableTabs": [],
+    "staticTabs": [],
     "permissions": [
         "identity",
         "messageTeamMembers"
     ],
-    "validDomains": [
-        "${{TAB_DOMAIN}}"
-    ]
+    "validDomains": []
 }
