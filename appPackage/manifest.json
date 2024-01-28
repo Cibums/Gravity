@@ -6,56 +6,42 @@
     "packageName": "com.microsoft.teams.extension",
     "developer": {
         "name": "Teams App, Inc.",
-        "websiteUrl": "https://www.example.com",
-        "privacyUrl": "https://www.example.com/privacy",
-        "termsOfUseUrl": "https://www.example.com/termofuse"
+        "websiteUrl": "${{TAB_ENDPOINT}}",
+        "privacyUrl": "${{TAB_ENDPOINT}}/index.html#/privacy",
+        "termsOfUseUrl": "${{TAB_ENDPOINT}}/index.html#/termsofuse"
     },
     "icons": {
         "color": "color.png",
         "outline": "outline.png"
     },
     "name": {
-        "short": "Gravity2${{APP_NAME_SUFFIX}}",
-        "full": "Full name for Gravity2"
+        "short": "Breakinize${{APP_NAME_SUFFIX}}",
+        "full": "Full name for Breakinize"
     },
     "description": {
-        "short": "Short description of Gravity2",
-        "full": "Full description of Gravity2"
+        "short": "Short description of Breakinize",
+        "full": "Full description of Breakinize"
     },
     "accentColor": "#FFFFFF",
-    "bots": [
+    "bots": [],
+    "composeExtensions": [],
+    "configurableTabs": [],
+    "staticTabs": [
         {
-            "botId": "${{BOT_ID}}",
+            "entityId": "index0",
+            "name": "Dashboard",
+            "contentUrl": "${{TAB_ENDPOINT}}/index.html#/tab",
+            "websiteUrl": "${{TAB_ENDPOINT}}/index.html#/tab",
             "scopes": [
-                "personal",
-                "team",
-                "groupchat"
-            ],
-            "supportsFiles": false,
-            "isNotificationOnly": false,
-            "commandLists": [
-                {
-                    "scopes": [
-                        "personal",
-                        "team",
-                        "groupchat"
-                    ],
-                    "commands": [
-                        {
-                            "title": "helloWorld",
-                            "description": "A helloworld command to send a welcome message"
-                        }
-                    ]
-                }
+                "personal"
             ]
         }
     ],
-    "composeExtensions": [],
-    "configurableTabs": [],
-    "staticTabs": [],
     "permissions": [
         "identity",
         "messageTeamMembers"
     ],
-    "validDomains": []
+    "validDomains": [
+        "${{TAB_DOMAIN}}"
+    ]
 }

@@ -1,203 +1,209 @@
-# Overview of the Workflow bot template
+# Overview of the Dashboard template
 
-This template showcases an app that responds to chat commands by displaying UI using an Adaptive Card. The card has a button that demonstrates how to receive user input on the card, do something like call an API, and update the UI of that card. This can be further customized to create richer, more complex sequence of steps which forms a complete workflow.
+This template showcases an app that embeds a canvas containing multiple cards that provide an overview of content in Microsoft Teams. Start with this template you can:
 
-The app template is built using the TeamsFx SDK, which provides a simple set of functions over the Microsoft Bot Framework to implement this scenario.
+- Use widgets to display content from apps and services within your dashboard tab.
+- Integrate your app with Graph API to visualize details about the implementation of the selected data.
+- Create customizable dashboards that allow your business to set specific goals that help you track the information you need to view in multiple areas and across departments
 
-## Get Started with the Workflow bot
+## Get started with the Dashboard template
 
 > **Prerequisites**
->
-> To run the workflow bot template in your local dev machine, you will need:
+> To run the dashboard template in your local dev machine, you will need:
 >
 > - [Node.js](https://nodejs.org/), supported versions: 16, 18
-> - An [Microsoft 365 account for development](https://docs.microsoft.com/microsoftteams/platform/toolkit/accounts)
-> - [Teams Toolkit Visual Studio Code Extension](https://aka.ms/teams-toolkit) version 5.0.0 and higher or [TeamsFx CLI](https://aka.ms/teamsfx-cli)
->
-> **Note**
->
-> Your app can be installed into a team, or a group chat, or as personal app. See [Installation and Uninstallation](https://aka.ms/teamsfx-command-response#customize-installation).
+> - A [Microsoft 365 account for development](https://docs.microsoft.com/microsoftteams/platform/toolkit/accounts)
+> - [Set up your dev environment for extending Teams apps across Microsoft 365](https://aka.ms/teamsfx-m365-apps-prerequisites)
+> Please note that after you enrolled your developer tenant in Office 365 Target Release, it may take couple days for the enrollment to take effect.
+> - [Teams Toolkit Visual Studio Code Extension](https://aka.ms/teams-toolkit) version 5.0.0 and higher or [Teams Toolkit CLI](https://aka.ms/teamsfx-cli)
 
 1. First, select the Teams Toolkit icon on the left in the VS Code toolbar.
 2. In the Account section, sign in with your [Microsoft 365 account](https://docs.microsoft.com/microsoftteams/platform/toolkit/accounts) if you haven't already.
-3. Press F5 to start debugging which launches your app in Teams using a web browser. Select `Debug in Teams (Edge)` or `Debug in Teams (Chrome)`.
+3. Press F5 to start debugging which launches your app in Teams using a web browser. Select `Debug (Edge)` or `Debug (Chrome)`.
 4. When Teams launches in the browser, select the Add button in the dialog to install your app to Teams.
-5. Type or select `helloWorld` in the chat to send it to your bot - this is the default command provided by the template.
-6. In the response from the bot, select the **DoStuff** button.
 
-The bot will respond by updating the existing Adaptive Card to show the workflow is now complete! Continue reading to learn more about what's included in the template and how to customize it.
+**Congratulations**! You are running an application that can now show a dashboard in Teams:
 
-Here is a screen shot of the application running:
-
-![Responds to command](https://user-images.githubusercontent.com/10163840/192477792-dc447b3a-e304-4cd8-b4df-b1eb9d226292.png)
-
-When you click the `DoStuff` button, the above adaptive card will be updated to a new card as shown below:
-
-![Responds to card action](https://user-images.githubusercontent.com/10163840/192477148-29d9edfc-085b-4d02-b3de-b47b9a456108.png)
+![Dashboard](https://github.com/OfficeDev/TeamsFx/assets/11220663/326e4f55-43a6-4c40-81e7-f5a9ea719169)
 
 ## What's included in the template
 
-| Folder / File | Contents |
-| - | - |
-| `teamsapp.yml` | Main project file describes your application configuration and defines the set of actions to run in each lifecycle stages |
-| `teamsapp.local.yml`| This overrides `teamsapp.yml` with actions that enable local execution and debugging |
-| `teamsapp.testtool.yml`| This overrides `teamsapp.yml` with actions that enable local execution and debugging in Teams App Test Tool |
-| `env/`| Name / value pairs are stored in environment files and used by `teamsapp.yml` to customize the provisioning and deployment rules |
-| `.vscode/` | VSCode files for debugging |
-| `appPackage/` | Templates for the Teams application manifest |
-| `infra/` | Templates for provisioning Azure resources |
-| `src/` | The source code for the application |
+| Folder       | Contents                                            |
+| - | -|
+| `.vscode`    | VSCode files for debugging                          |
+| `appPackage` | Templates for the Teams application manifest        |
+| `env`        | Environment files                                   |
+| `infra`      | Templates for provisioning Azure resources          |
+| `src`        | The source code for the dashboard Teams application |
 
 The following files can be customized and demonstrate an example implementation to get you started.
 
-| File | Contents |
+| File                                 | Contents                                           |
+| - | -|
+| `src/models/chartModel.ts`           | Data model for the chart widget                    |
+| `src/models/listModel.ts`            | Data model for the list widget                     |
+| `src/services/chartService.ts`       | A data retrive implementation for the chart widget |
+| `src/services/listService.ts`        | A data retrive implementation for the list widget  |
+| `src/dashboards/SampleDashboard.tsx` | A sample dashboard layout implementation           |
+| `src/styles/ChartWidget.css`         | The chart widget style file                        |
+| `src/styles/ListWidget.css`          | The list widget style file                         |
+| `src/widgets/ChartWidget.tsx`        | A widget implementation that can display a chart   |
+| `src/widgets/ListWidget.tsx`         | A widget implementation that can display a list    |
+| `src/App.css`                        | The style of application route                     |
+| `src/App.tsx`                        | Application route                                  |
+
+The following are project-related files. You generally will not need to customize these files.
+
+| File                               | Contents                                                     |
 | - | - |
-| `src/index.ts`| Application entry point and `restify` handlers for the Workflow bot |
-| `src/teamsBot.ts` | An empty teams activity handler for bot customization |
-| `src/commands/helloworldCommandHandler.ts` | Implementation that handles responding to a chat command |
-| `src/adaptiveCards/helloworldCommandResponse.json` | Defines the Adaptive Card (UI) that is displayed in response to a chat command |
-| `src/adaptiveCards/doStuffActionResponse.json` | A generated Adaptive Card that is sent to Teams for the response of "doStuff" action |
-| `src/cardActions/doStuffActionHandler.ts` | Implements the handler for the `doStuff` button displayed in the Adaptive Card |
+| `src/index.css`                    | The style of application entry point                         |
+| `src/index.tsx`                    | Application entry point                                      |
+| `src/internal/context.ts`          | TeamsFx Context                                              |
 
-## Extend the workflow bot template with more actions and responses
+The following are Teams Toolkit specific project files. You can [visit a complete guide on Github](https://github.com/OfficeDev/TeamsFx/wiki/Teams-Toolkit-Visual-Studio-Code-v5-Guide#overview) to understand how Teams Toolkit works.
 
-Follow steps below to add more actions and responses to extend the workflow bot:
+| File                                 | Contents                                           |
+| - | - |
+|`teamsapp.yml`|This is the main Teams Toolkit project file. The project file defines two primary things:  Properties and configuration Stage definitions.|
+|`teamsapp.local.yml`|This overrides `teamsapp.yml` with actions that enable local execution and debugging.|
 
-1. [Step 1: Add an action to your Adaptive Card](#step-1-add-an-action-to-your-adaptive-card)
-2. [Step 2: Respond with a new Adaptive Card](#step-2-respond-with-a-new-adaptive-card)
-3. [Step 3: Handle the new action](#step-3-handle-the-new-action)
-4. [Step 4: Register the new handler](#step-4-register-the-new-handler)
+## Extend the Dashboard template to add a new widget
 
-### Step 1: Add an action to your Adaptive Card
+You can use the following steps to add a new widget to the dashboard:
 
-Adding new actions (buttons) to an Adaptive Card is as simple as defining them in the JSON file. Add a new `DoSomething` action to the `src/adaptiveCards/helloworldCommandResponse.json` file:
+1. [Step 1: Define a data model](#step-1-define-a-data-model)
+2. [Step 2: Create a data retrive service](#step-2-create-a-data-retrive-service)
+3. [Step 3: Create a widget file](#step-3-create-a-widget-file)
+4. [Step 4: Add the widget to the dashboard](#step-4-add-the-widget-to-the-dashboard)
 
-Here's a sample action with type `Action.Execute`:
+### Step 1: Define a data model
 
-```json
-{
-  "type": "AdaptiveCard",
-  "body": [
-    ...
-    {
-      "type": "ActionSet",
-      "actions": [
-        {
-          "type": "Action.Execute",
-          "title": "DoSomething",
-          "verb": "doSomething"
-        }
-      ]
-    },
-    ...
-  ]
-}
-```
-
-Specifying the `type` as `Action.Execute` to define an universal action in the base card. User can click the button to perform some business task in Teams chat. Learn more about [Adaptive Card Universal Actions in the documentation](https://learn.microsoft.com/microsoftteams/platform/task-modules-and-cards/cards/universal-actions-for-adaptive-cards/overview?tabs=mobile#universal-actions).
-
-> **_NOTE:_** the `verb` property is required here so that the TeamsFx conversation SDK can invoke the corresponding action handler when the action is invoked in Teams. You should provide a global unique string for the `verb` property, otherwise you may experience unexpected behavior if you're using a general string that might cause a collision with other bot actions.
-
-### Step 2: Respond with a new Adaptive Card
-
-For each action, you can display a new Adaptive Card as a response to the user. Create a new file, `src/adaptiveCards/doSomethingResponse.json` to use as a response for the `DoSomething` action created in the previous step:
-
-```json
-{
-  "type": "AdaptiveCard",
-  "body": [
-    {
-      "type": "TextBlock",
-      "size": "Medium",
-      "weight": "Bolder",
-      "text": "A sample response to DoSomething."
-    }
-  ],
-  "$schema": "http://adaptivecards.io/schemas/adaptive-card.json",
-  "version": "1.4"
-}
-```
-
-You can use the [Adaptive Card Designer](https://adaptivecards.io/designer/) to help visually design your Adaptive Card UI.
-
-### Step 3: Handle the new action
-
-The TeamsFx SDK provides a convenient class, `TeamsFxAdaptiveCardActionHandler`, to handle when an action from an Adaptive Card is invoked. Create a new file, `src/cardActions/doSomethingActionHandler.ts`:
+Define a data model based on the business scenario, we recommend that you place the data model under the `src/models` directory. Here is an example of a data model::
 
 ```typescript
-const { AdaptiveCards } = require("@microsoft/adaptivecards-tools");
-const { AdaptiveCardResponse, InvokeResponseFactory } = require("@microsoft/teamsfx");
-const responseCard = require("../adaptiveCards/doSomethingResponse.json");
+//sampleModel.ts
+export interface SampleModel {
+  content: string;
+}
+```
 
-export class DoSomethingActionHandler {
-  triggerVerb = "doSomething";
+### Step 2: Create a data retrive service
 
-  async handleActionInvoked(context, message) {
-    const responseCardJson = AdaptiveCards.declare(responseCard).render(actionData);
-    return InvokeResponseFactory.adaptiveCard(responseCardJson);
+Typically, a widget requires a service to retrieve the necessary data for displaying its content. This service can either fetch static data from a predefined source or retrieve dynamic data from a backend service or API.
+
+For instance, we will implement a service that returns static data and place it under the `src/services` directory.
+
+Here is a sample service for retrieving static data:
+
+```typescript
+//sampleService.ts
+import { SampleModel } from "../models/sampleModel";
+
+export const getSampleData = (): SampleModel => {
+  return { content: "Hello world!" };
+};
+```
+
+### Step 3: Create a widget file
+
+Create a widget file in the `src/widgets` folder. Inherit the `BaseWidget` class from `@microsoft/teamsfx-react`. The following table lists the methods that you can override to customize your widget.
+
+| Methods     | Function  |
+| - | -|
+| `getData()` | This method is used to get the data for the widget. You can implement it to get data from the backend service or from the Microsoft Graph API |
+| `header()`  | Customize the content of the widget header                                                                                                    |
+| `body()`    | Customize the content of the widget body                                                                                                      |
+| `footer()`  | Customize the content of the widget footer                                                                                                    |
+| `styling()` | Customize the widget style                                                                                                                    |
+
+> All method overrides are optional.
+
+Here's a sample widget implementation:
+
+```tsx
+//SampleWidget.tsx
+import { Button, Text } from "@fluentui/react-components";
+import { BaseWidget } from "@microsoft/teamsfx-react";
+import { SampleModel } from "../models/sampleModel";
+import { getSampleData } from "../services/sampleService";
+
+interface SampleWidgetState {
+  data?: SampleModel;
+}
+
+export class SampleWidget extends BaseWidget<any, SampleWidgetState> {
+  override async getData(): Promise<SampleWidgetState> {
+    return { data: getSampleData() };
+  }
+
+  override header(): JSX.Element | undefined {
+    return <Text>Sample Widget</Text>;
+  }
+
+  override body(): JSX.Element | undefined {
+    return <div>{this.state.data?.content}</div>;
+  }
+
+  override footer(): JSX.Element | undefined {
+    return <Button>View Details</Button>;
   }
 }
 ```
 
-> Please note:
->
-> - The `triggerVerb` is the `verb` property of your action.
->
-> - The `actionData` is the data associated with the action, which may include dynamic user input or some contextual data provided in the `data` property of your action.
->
-> - If an Adaptive Card is returned, then the existing card will be replaced with it by default.
+### Step 4: Add the widget to the dashboard
 
-You can customize what the action does here, including calling an API, processing data, etc.
+Open the `src/dashboards/SampleDashboard.tsx` file and add the widget to the implementation of the `layout` method. If you want to create a new dashboard, please refer to [How to add a new dashboard](https://aka.ms/teamsfx-dashboard-new#how-to-add-a-new-dashboard).
 
-### Step 4: Register the new handler
-
-Each new card action needs to be configured in the `ConversationBot`, which powers the conversational flow of the workflow bot template. Navigate to the `src/internal/initialize.ts` file and update the `actions` array of the `cardAction` property.
-
-1. Go to `src/internal/initialize.ts`;
-2. Update your `conversationBot` initialization to enable cardAction feature and add the handler to `actions` array:
-
-```typescript
-import { BotBuilderCloudAdapter } from "@microsoft/teamsfx";
-import ConversationBot = BotBuilderCloudAdapter.ConversationBot;
-
-const conversationBot = new ConversationBot({
-  ...
-  cardAction: {
-    enabled: true,
-    actions: [
-      new DoStuffActionHandler(),
-      new DoSomethingActionHandler()
-    ],
-  }
-});
+```tsx
+override layout(): JSX.Element | undefined {
+  return (
+    <>
+      <ListWidget />
+      <ChartWidget />
+      <SampleWidget />
+    </>
+  );
+}
 ```
 
-Congratulations, you've just created your own workflow! To learn more about extending the Workflow bot template, [visit the documentation on GitHub](https://aka.ms/teamsfx-workflow-new). You can find more scenarios like:
+Optional: If you want to arrange multiple widgets in the same column, you can refer to the following code snippet:
 
-- [Customize the way to respond to an action](https://aka.ms/teamsfx-workflow-new#customize-the-action-response)
-- [Customize the Adaptive Card content](https://aka.ms/teamsfx-workflow-new#customize-the-adaptive-card-content)
-- [Create a user specific view](https://aka.ms/teamsfx-workflow-new#auto-refresh-to-user-specific-view)
-- [Access Microsoft Graph](https://aka.ms/teamsfx-workflow-new#access-microsoft-graph)
-- [Connect to existing APIs](https://aka.ms/teamsfx-workflow-new#connect-to-existing-apis)
-- [Change the way to initialize the bot](https://aka.ms/teamsfx-workflow-new#customize-the-initialization)
+```css
+.one-column {
+  display: grid;
+  gap: 20px;
+  grid-template-rows: 1fr 1fr;
+}
+```
 
-## Extend workflow bot with other bot scenarios
+```jsx
+override layout(): JSX.Element | undefined {
+  return (
+    <>
+      <ListWidget />
+      <div className="one-column">
+        <ChartWidget />
+        <SampleWidget />
+      </div>
+    </>
+  );
+}
+```
+Congratulations, you've just added your own widget! To learn more about the dashboard template, [visit the documentation](https://aka.ms/teamsfx-dashboard-new). You can find more scenarios like:
 
-Workflow bot is compatible with other bot scenarios like notification bot and command bot.
+- [Customize the widget](https://aka.ms/teamsfx-dashboard-new#customize-the-widget)
+- [Customize the dashboard layout](https://aka.ms/teamsfx-dashboard-new#customize-the-dashboard-layout)
+- [Create a data loader](https://aka.ms/teamsfx-dashboard-new#how-to-include-a-data-loader)
+- [Refresh data based on the schedule](https://aka.ms/teamsfx-dashboard-new#how-to-refresh-data-as-scheduled)
+- [Handle empty state](https://aka.ms/teamsfx-dashboard-new#how-to-handle-empty-state)
+- [Add a new dashboard](https://aka.ms/teamsfx-dashboard-new#how-to-add-a-new-dashboard)
+- [Use Microsoft Graph Toolkit as widget content](https://aka.ms/teamsfx-dashboard-new#how-to-use-microsoft-graph-toolkit-as-widget-content)
+- [Embed Power BI to dashboard](https://aka.ms/teamsfx-dashboard-new#how-to-embed-power-bi-to-dashboard)
+- [How to add a new Graph API call](https://aka.ms/teamsfx-dashboard-new#how-to-add-a-new-graph-api-call)
+- [Enable the app for multi-tenant](https://github.com/OfficeDev/TeamsFx/wiki/Multi-tenancy-Support-for-Azure-AD-app)
+- [Preview the app on mobile clients](https://github.com/OfficeDev/TeamsFx/wiki/Run-and-debug-your-Teams-application-on-iOS-or-Android-client)
 
-### Add notifications to your workflow bot
+## Additional resources
 
-The notification feature adds the ability for your application to send Adaptive Cards in response to external events. Follow the [steps here](https://aka.ms/teamsfx-workflow-new#how-to-extend-workflow-bot-with-notification-feature) to add the notification feature to your workflow bot. Refer [the notification document](https://aka.ms/teamsfx-notification-new) for more information.
-
-### Add command and responses to your workflow bot
-
-The command and response feature adds the ability for your application to "listen" to commands sent to it via a Teams message and respond to commands with Adaptive Cards. Follow the [steps here](https://aka.ms/teamsfx-command-new#How-to-add-more-command-and-response) to add the command response feature to your workflow bot. Refer [the command bot document](https://aka.ms/teamsfx-command-new) for more information.
-
-## Additional information and references
-
-- [Manage multiple environments](https://docs.microsoft.com/microsoftteams/platform/toolkit/teamsfx-multi-env)
-- [Collaborate with others](https://docs.microsoft.com/microsoftteams/platform/toolkit/teamsfx-collaboration)
-- [Teams Toolkit Documentations](https://docs.microsoft.com/microsoftteams/platform/toolkit/teams-toolkit-fundamentals)
-- [Teams Toolkit CLI](https://docs.microsoft.com/microsoftteams/platform/toolkit/teamsfx-cli)
-- [TeamsFx SDK](https://docs.microsoft.com/microsoftteams/platform/toolkit/teamsfx-sdk)
-- [Teams Toolkit Samples](https://github.com/OfficeDev/TeamsFx-Samples)
+- [Fluent UI](https://react.fluentui.dev/?path=/docs/concepts-introduction--page)
+- [Fluent UI React Charting Example](https://fluentuipr.z22.web.core.windows.net/heads/master/react-charting/demo/index.html#/)
