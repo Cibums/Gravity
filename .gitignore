@@ -9,7 +9,8 @@ appPackage/build
 node_modules/
 
 # misc
-.env
+env/.env.*
+.env.dev
 .deployment
 .DS_Store
 
